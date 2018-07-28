@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cier.dao.EmpVoMapper">
+    <resultMap id="BaseResultMap" type="com.cier.vo.EmpVo">
+        <constructor>
+            <idArg column="empno" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+            <arg column="ename" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="job" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="mgr" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="hiredate" jdbcType="TIMESTAMP" javaType="java.util.Date"/>
+            <arg column="sal" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="comm" jdbcType="VARCHAR" javaType="java.lang.String"/>
+            <arg column="dname" jdbcType="VARCHAR" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List">
+        empno, ename, job, mgr, hiredate, sal, comm, dname
+    </sql>
+    <select id="selectList" resultType="com.cier.vo.EmpVo">
+        select emp.*,dept.dname from emp
+        left join dept on emp.deptno = dept.deptno
+    </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(1) from emp
+        left join dept on emp.deptno = dept.deptno
+    </select>
+    <select id="selectListByPage" resultType="com.cier.vo.EmpVo">
+        select emp.*,dept.dname from emp
+        left join dept on emp.deptno = dept.deptno
+        where ename like concat('%',#{ename},'%')
+    </select>
+    <delete id="deleteById" parameterType="int">
+        DELETE from emp where empno = #{empno}
+    </delete>
+    <insert id="insert" parameterType="com.cier.vo.EmpVo">
+    insert into emp (empno, ename, job,
+      mgr, hiredate, sal,
+      comm, deptno)
+    values (#{empno,jdbcType=INTEGER}, #{ename,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR},
+      #{mgr,jdbcType=VARCHAR}, #{hiredate,jdbcType=TIMESTAMP}, #{sal,jdbcType=VARCHAR},
+      #{comm,jdbcType=VARCHAR}, #{dname,jdbcType=INTEGER})
+  </insert>
+    <update id="updateByPrimaryKey" parameterType="com.cier.vo.EmpVo">
+        update emp
+        set ename = #{ename,jdbcType=VARCHAR},
+        job = #{job,jdbcType=VARCHAR},
+        mgr = #{mgr,jdbcType=VARCHAR},
+        hiredate = #{hiredate,jdbcType=TIMESTAMP},
+        sal = #{sal,jdbcType=VARCHAR},
+        comm = #{comm,jdbcType=VARCHAR},
+        deptno = #{dname,jdbcType=INTEGER}
+        where empno = #{empno,jdbcType=INTEGER}
+    </update>
+</mapper>

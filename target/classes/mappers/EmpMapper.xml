@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cier.dao.EmpMapper" >
+  <resultMap id="BaseResultMap" type="com.cier.pojo.Emp" >
+    <constructor >
+      <idArg column="empno" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ename" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="job" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="mgr" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="hiredate" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="sal" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="comm" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="deptno" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    empno, ename, job, mgr, hiredate, sal, comm, deptno
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from emp
+    where empno = #{empno,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from emp
+    where empno = #{empno,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cier.pojo.Emp" >
+    insert into emp (empno, ename, job, 
+      mgr, hiredate, sal, 
+      comm, deptno)
+    values (#{empno,jdbcType=INTEGER}, #{ename,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, 
+      #{mgr,jdbcType=VARCHAR}, #{hiredate,jdbcType=TIMESTAMP}, #{sal,jdbcType=VARCHAR}, 
+      #{comm,jdbcType=VARCHAR}, #{deptno,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cier.pojo.Emp" >
+    insert into emp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="empno != null" >
+        empno,
+      </if>
+      <if test="ename != null" >
+        ename,
+      </if>
+      <if test="job != null" >
+        job,
+      </if>
+      <if test="mgr != null" >
+        mgr,
+      </if>
+      <if test="hiredate != null" >
+        hiredate,
+      </if>
+      <if test="sal != null" >
+        sal,
+      </if>
+      <if test="comm != null" >
+        comm,
+      </if>
+      <if test="deptno != null" >
+        deptno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="empno != null" >
+        #{empno,jdbcType=INTEGER},
+      </if>
+      <if test="ename != null" >
+        #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null" >
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="mgr != null" >
+        #{mgr,jdbcType=VARCHAR},
+      </if>
+      <if test="hiredate != null" >
+        #{hiredate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sal != null" >
+        #{sal,jdbcType=VARCHAR},
+      </if>
+      <if test="comm != null" >
+        #{comm,jdbcType=VARCHAR},
+      </if>
+      <if test="deptno != null" >
+        #{deptno,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cier.pojo.Emp" >
+    update emp
+    <set >
+      <if test="ename != null" >
+        ename = #{ename,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null" >
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="mgr != null" >
+        mgr = #{mgr,jdbcType=VARCHAR},
+      </if>
+      <if test="hiredate != null" >
+        hiredate = #{hiredate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sal != null" >
+        sal = #{sal,jdbcType=VARCHAR},
+      </if>
+      <if test="comm != null" >
+        comm = #{comm,jdbcType=VARCHAR},
+      </if>
+      <if test="deptno != null" >
+        deptno = #{deptno,jdbcType=INTEGER},
+      </if>
+    </set>
+    where empno = #{empno,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cier.pojo.Emp" >
+    update emp
+    set ename = #{ename,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR},
+      mgr = #{mgr,jdbcType=VARCHAR},
+      hiredate = #{hiredate,jdbcType=TIMESTAMP},
+      sal = #{sal,jdbcType=VARCHAR},
+      comm = #{comm,jdbcType=VARCHAR},
+      deptno = #{deptno,jdbcType=INTEGER}
+    where empno = #{empno,jdbcType=INTEGER}
+  </update>
+</mapper>
